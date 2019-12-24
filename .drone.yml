@@ -25,7 +25,7 @@ steps:
       from_secret: docker_user_name
     password:
       from_secret: docker_user_password
-    repo: yexm1018/drone-demo-test3
+    repo: yexm1018/my-drone-demo
     tags: latest
 #- name: docker
 #  pull: always
