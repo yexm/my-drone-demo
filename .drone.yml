@@ -1,0 +1,48 @@
+kind: pipeline
+type: docker
+name: build
+steps:
+- name: build
+  image: golang:buster
+  pull: always # always never
+  environment:
+    GOPROXY: "https://goproxy.io,https://goproxy.cn,https://mirrors.aliyun.com/goproxy/,direct"
+    GO111MODULE: "on"
+    GOOS: "linux"
+    GOARCH: "amd64"
+    CGO_ENABLED: "0"
+  commands:
+    - pwd
+    - ls
+    - CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+    - ./app
+- name: docker
+  image: plugins/docker
+  settings:
+    context: .
+#    dockerfile: ./Dockerfile
+    username:
+      from_secret: docker_user_name
+    password:
+      from_secret: docker_user_password
+    repo: yexm1018/drone-demo-test3
+    tags: latest
+#- name: docker
+#  pull: always
+#  image: plugins/docker
+#  settings:
+##    context: .
+##    dockerfile: ./Dockerfile
+#    registry: yexm1018
+#    insecure: true
+##    secrets: [docker_user_name,docker_user_password]
+#    username:
+#      from_secret: docker_user_name
+#    password:
+#      from_secret: docker_user_password
+#    repo: yexm1018/drone-demo
+#    tags: latest
+
+trigger:
+  branch:
+  - master
