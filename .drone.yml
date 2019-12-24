@@ -20,28 +20,13 @@ steps:
   image: plugins/docker
   settings:
     context: .
-#    dockerfile: ./Dockerfile
+    dockerfile: ./Dockerfile
     username:
       from_secret: docker_user_name
     password:
       from_secret: docker_user_password
     repo: yexm1018/my-drone-demo
     tags: latest
-#- name: docker
-#  pull: always
-#  image: plugins/docker
-#  settings:
-##    context: .
-##    dockerfile: ./Dockerfile
-#    registry: yexm1018
-#    insecure: true
-##    secrets: [docker_user_name,docker_user_password]
-#    username:
-#      from_secret: docker_user_name
-#    password:
-#      from_secret: docker_user_password
-#    repo: yexm1018/drone-demo
-#    tags: latest
 
 trigger:
   branch:
